@@ -14,7 +14,8 @@ with open(file, "w") as of:
     of.write('; Postprocessed by [patch-slicer-metadata](https://github.com/evilDave/patch-slicer-metadata)\n\n')
     for i in range(len(lines)):
         line = lines[i]
-        match = re.search('filament_density:|filament_diameter:', line)
+        # Remove the problem metadata, the correct data is at the bottom of the file like `; filament_diameter = 1.75`
+        match = re.search('filament_density:|filament_diameter:|max_z_height:', line)
         if not match:
             of.write(line)  # skip the added metadata
 of.close()
